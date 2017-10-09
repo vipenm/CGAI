@@ -1,0 +1,54 @@
+body {
+    text-align: center;
+}
+
+p {
+	font: bold;
+	color: black;
+	margin: 15px;
+}
+
+H1 {
+    background-color: rgb(51, 153, 255);
+    font-family: Arial;
+    color: black;
+}
+
+img {
+	border:0;
+	width:88px;
+	height:31px;
+}
+
+#updates {
+	width: 300px;
+	height: 400px;
+}
+
+#myApp {
+    box-shadow: rgba(0,0,0,4) 0px 0px 30px;
+    width: 1200px;
+    height: 800px;
+    margin: 50px auto;
+    background-color: rgb(192, 192, 192);
+    font-family: Arial;
+    color: white;
+}
+ 
+ #myCanvas {
+    margin: 20px 20px;
+	float: left;
+    width: 800px;
+    height: 600px;
+    background-color: white;
+}
+
+#sidePanel {
+    margin: 20px 20px;
+	float: right;
+    width: 300px;
+	height: 600px;
+    text-align: left;
+    position: relative;
+	background-color: white;
+}
