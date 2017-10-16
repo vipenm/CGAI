@@ -71,16 +71,18 @@ function initialiseExample() {
 function matrixMultiply() {
     "use strict";
 
-   // var newComposite = new Array(composite.length);
+    var i;
+    var j;
+    var k;
 
-    for(var i = 0; i < newComposite.length; i++) {
-    	newComposite[i] = new Array(newTransform[i].length);
-    	for(var j = 0; j < newTransform[i].length; j++) {
-    		newComposite[i][j] = 0;
-    		for(var k = 0; k <newTransform.length; k++) {
-    			newComposite[i][j] += composite[i][k] * newTransform[k][j];
-    		}
-    	}
+    for (i = 0; i < newComposite.length; i += 1) {
+        newComposite[i] = new Array(newTransform[i].length);
+        for (j = 0; j < newTransform[i].length; j += 1) {
+            newComposite[i][j] = 0; // initialise to 0
+            for (k = 0; k <newTransform.length; k += 1) {
+                newComposite[i][j] += composite[i][k] * newTransform[k][j];
+            }
+        }
     }
 }
 
@@ -191,4 +193,3 @@ function translateShape() {
     document.getElementById("updates").innerHTML += "You entered Translate " + newTransform[0][2] + " in X" + "<br>" + "You entered Translate " + newTransform[1][2] + " in Y" + "<br>";
     reDraw();
 }
-
