@@ -69,6 +69,20 @@ function initialiseExample() {
 */
 function matrixMultiply() {
     "use strict";
+
+    var newComposite = new Array(composite.length);
+
+    for(var i = 0; i < newComposite.length; i++) {
+    	newComposite[i] = new Array(newTransform[i].length);
+    	for(var j = 0; j < newTransform[i].length; j++) {
+    		newComposite[i][j] = 0;
+    		for(var k = 0; k <newTransform.length; k++) {
+    			newComposite[i][j] += composite[i][k] * newTransform[k][j];
+    		}
+    	}
+    }
+    window.alert(newComposite[0][0] + " " + newComposite[0][1] + " " + newComposite[0][2] + "\n" + newComposite[1][0] + " " 
+    	+ newComposite[1][1] + " " + newComposite[1][2] + "\n" + newComposite[2][0] + " " + newComposite[2][1] + " " + newComposite[2][2]);
     //write code to multiply matrices together
     //M3 = M1 x M2
     //(new)composite(matrix) = (old)composite(matrix) x newTransform (matrix)
