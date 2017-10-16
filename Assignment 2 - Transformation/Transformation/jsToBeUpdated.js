@@ -15,6 +15,7 @@ var shapeCoords = [[20, 20], [20, 40], [60, 40], [60, 20], [20, 20],  //car outl
         [45, 20], [45, 18], [55, 18], [55, 20],             //tyre lower right
         [23, 24], [23, 36], [45, 36], [45, 24], [23, 24]]; //car roof
 var composite = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+var newComposite = new Array(composite.length);
 
 /* pretty easy to understand
 [1 0 0]
@@ -70,7 +71,7 @@ function initialiseExample() {
 function matrixMultiply() {
     "use strict";
 
-    var newComposite = new Array(composite.length);
+   // var newComposite = new Array(composite.length);
 
     for(var i = 0; i < newComposite.length; i++) {
     	newComposite[i] = new Array(newTransform[i].length);
@@ -81,27 +82,21 @@ function matrixMultiply() {
     		}
     	}
     }
-    window.alert(newComposite[0][0] + " " + newComposite[0][1] + " " + newComposite[0][2] + "\n" + newComposite[1][0] + " " 
-    	+ newComposite[1][1] + " " + newComposite[1][2] + "\n" + newComposite[2][0] + " " + newComposite[2][1] + " " + newComposite[2][2]);
-    //write code to multiply matrices together
-    //M3 = M1 x M2
-    //(new)composite(matrix) = (old)composite(matrix) x newTransform (matrix)
-    return true; //delete after you have put code in
 }
 
 function transformCoordsX(position) {
     "use strict";
-    // replace the following line of code
-    // with the correct line of code to calculate
-    // new X value
+
+    position += newComposite[0][2];
+
     return position;
 }
 
 function transformCoordsY(position) {
     "use strict";
-    // replace the following line of code
-    // with the correct line of code to calculate
-    // new Y value
+
+    position += newComposite[1][2];
+
     return position;
 }
 
