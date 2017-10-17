@@ -89,17 +89,25 @@ function matrixMultiply() {
 function transformCoordsX(position) {
     "use strict";
 
-    position += newComposite[0][2];
+    var translation = newComposite[0][2]; // get translation in x
+    var scale = newComposite[0][0]; // get scaling in x
 
-    return position;
+    shapeCoords[position][0] += translation;
+    shapeCoords[position][0] *= scale;
+
+    return shapeCoords[position][0];
 }
 
 function transformCoordsY(position) {
     "use strict";
 
-    position += newComposite[1][2];
+    var translation = newComposite[1][2]; //  get translation in y
+    var scale = newComposite[1][1]; // get scaling in y
 
-    return position;
+    shapeCoords[position][1] += translation;
+    shapeCoords[position][1] *= scale;
+
+    return shapeCoords[position][1];
 }
 
 function setUnitMatrixT() {
