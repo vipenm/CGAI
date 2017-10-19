@@ -21,10 +21,6 @@ function drawBezierCurve() {
     t = 1 / nSteps;
     x = Math.pow((1 - t), 3) * arrayX[0] + (3 * Math.pow((1 - t), 2)) * t * arrayX[1] + (3 * (1 - t)) * Math.pow(t, 2) * arrayX[2] + Math.pow(t, 3) * arrayX[3];
     y = Math.pow((1 - t), 3) * arrayY[0] + (3 * Math.pow((1 - t), 2)) * t * arrayY[1] + (3 * (1 - t)) * Math.pow(t, 2) * arrayY[2] + Math.pow(t, 3) * arrayY[3];
-
-	//for (var i = 0; i < nSteps; i++) {
-		drawLine(arrayX[0], arrayY[0], x, y, 'blue');
-	//}
 }
 
 // points array
