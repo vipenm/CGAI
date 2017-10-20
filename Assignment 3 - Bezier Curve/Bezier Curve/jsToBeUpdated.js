@@ -28,7 +28,7 @@ function drawBezierCurve() {
     //get resolution
     t = 1 / nSteps;
 
-    var increment = t;
+    var tIncrement = t;
 
 
     for (i = 0; i < nSteps; i += 1) {
@@ -44,7 +44,7 @@ function drawBezierCurve() {
         oldY = y;
 
         //increment resolution so the the equation is updated to draw the next line
-        t += increment;
+        t += tIncrement;
     }
 }
 
