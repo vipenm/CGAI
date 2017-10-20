@@ -15,12 +15,37 @@ var nSteps = 4;
 
 function drawBezierCurve() {
     "use strict";
-    // replace the following two lines with the correct code
-    var x, y, t;
 
+    var x;
+    var y;
+    var t;
+    var i;
+
+    //assign new variables to equal the original
+    var oldX = arrayX[0];
+    var oldY = arrayY[0];
+
+    //get resolution
     t = 1 / nSteps;
-    x = Math.pow((1 - t), 3) * arrayX[0] + (3 * Math.pow((1 - t), 2)) * t * arrayX[1] + (3 * (1 - t)) * Math.pow(t, 2) * arrayX[2] + Math.pow(t, 3) * arrayX[3];
-    y = Math.pow((1 - t), 3) * arrayY[0] + (3 * Math.pow((1 - t), 2)) * t * arrayY[1] + (3 * (1 - t)) * Math.pow(t, 2) * arrayY[2] + Math.pow(t, 3) * arrayY[3];
+
+    var increment = t;
+
+
+    for (i = 0; i < nSteps; i += 1) {
+
+        //input variables into cubic equation
+        x = Math.pow((1 - t), 3) * arrayX[0] + (3 * Math.pow((1 - t), 2)) * t * arrayX[1] + (3 * (1 - t)) * Math.pow(t, 2) * arrayX[2] + Math.pow(t, 3) * arrayX[3];
+        y = Math.pow((1 - t), 3) * arrayY[0] + (3 * Math.pow((1 - t), 2)) * t * arrayY[1] + (3 * (1 - t)) * Math.pow(t, 2) * arrayY[2] + Math.pow(t, 3) * arrayY[3];
+
+        drawLine(oldX, oldY, x, y, "blue");
+
+        //update original variables with new ones so it moves to the end of the previously drawn line
+        oldX = x;
+        oldY = y;
+
+        //increment resolution so the the equation is updated to draw the next line
+        t += increment;
+    }
 }
 
 // points array
@@ -35,7 +60,9 @@ function displaySideText() {
 
 function initialiseExample() {
     "use strict";
-    var i, j;
+    var i;
+    var j;
+
     clearGrid(true, true, 10); //clear canvas area ready for redraw
     //draw 4 crosses at control points
     for (i = 0; i <= 3; i = i + 1) {
@@ -43,7 +70,7 @@ function initialiseExample() {
     }
     //draw lines connecting points in blue
     for (j = 0; j <= 2; j = j + 1) {
-        drawLine(arrayX[j], arrayY[j], arrayX[j + 1], arrayY[j + 1], 'red');
+        drawLine(arrayX[j], arrayY[j], arrayX[j + 1], arrayY[j + 1], "red");
     }
     displaySideText();
     drawBezierCurve();
@@ -51,7 +78,10 @@ function initialiseExample() {
 
 function alterControlPoint() {
     "use strict";
-    var tempx, tempy, point;
+    var tempx;
+    var tempy;
+    var point;
+
     point = window.prompt("Enter number of point you want to change (1-4)", "");
     if (0 < point && point < 5) {
         window.alert("You chose to change point " + point + "\n" + "Old X = " + arrayX[point - 1] + "\n" + "Old Y = " + arrayY[point - 1]);
