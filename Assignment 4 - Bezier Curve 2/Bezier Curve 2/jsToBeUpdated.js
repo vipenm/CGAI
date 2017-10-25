@@ -27,11 +27,45 @@ var lineWidth = 100; //used to allow different width of bezier curves to be draw
 var gridState = true; //flag for grid to be toggled on and off
 var curveState = true; //flag used to toggle curve on and off
 
- function drawBezierCurve() {
+function drawBezierCurve() {
     "use strict";
-    // replace the following two lines with the correct code
-    drawLine(arrayX[0], arrayY[0], (arrayX[0] + arrayX[1] + arrayX[2] + arrayX[3]) / 4, (arrayY[0] + arrayY[1] + arrayY[2] + arrayY[3]) / 4, 'blue');
-    drawLine((arrayX[0] + arrayX[1] + arrayX[2] + arrayX[3]) / 4, (arrayY[0] + arrayY[1] + arrayY[2] + arrayY[3]) / 4, arrayX[3], arrayY[3], 'blue');
+
+    var x;
+    var y;
+    var t;
+    var i;
+
+    //assign new variables to equal the original
+    var oldX;
+    var oldY;
+
+    //get resolution
+    t = 1 / nSteps;
+
+    var tIncrement = t;
+
+    for (var j = 0; j < 3; j += 3) {
+        oldX = points[j][0];
+        oldY = points[j][1];
+
+        for (i = 0; i < nSteps; i += 1) {
+
+            //input variables into quadratic equation
+
+            x = Math.pow((1 - t), 2) * points[j][0] + 2 * (1 - t) * t * points[j + 1][0] + Math.pow(t, 2) * points[j + 2][0];
+            y = Math.pow((1 - t), 2) * points[j][1] + 2 * (1 - t) * t * points[j + 1][1] + Math.pow(t, 2) * points[j + 2][1];
+
+
+            drawLine(oldX, oldY, x, y, "black", lineWidth);
+
+            //increment resolution so the the equation is updated to draw the next line
+            t += tIncrement;
+
+            //update original variables with new ones so it moves to the end of the previously drawn line
+            oldX = x;
+            oldY = y;
+        }
+    }
 }
 
 //keeps the side bar information up to date
@@ -245,5 +279,3 @@ function toggleCurve() {
     }
     displayScreen(); //redraw
 }
-
-
