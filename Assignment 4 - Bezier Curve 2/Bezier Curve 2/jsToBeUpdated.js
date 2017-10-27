@@ -23,6 +23,24 @@ var points = [
     [-90, -215], [-355, -120], [-340, 90]
 ];
 
+var shapeCoords = [
+    [20, 40], [20, 60], [60, 60], [60, 40], [20, 40],  //car outline
+    [25, 60], [25, 62], [35, 62], [35, 60],             //tyre upper left
+    [45, 60], [45, 62], [55, 62], [55, 60],             //tyre upper right
+    [25, 40], [25, 38], [35, 38], [35, 40],             //tyre lower left
+    [45, 40], [45, 38], [55, 38], [55, 40],             //tyre lower right
+    [23, 44], [23, 56], [45, 56], [45, 44], [23, 44]
+]; //car roof
+
+var shapeCoords2 = [
+    [20, -10], [20, 10], [60, 10], [60, -10], [20, -10],  //car outline
+    [25, 10], [25, 12], [35, 12], [35, 10],             //tyre upper left
+    [45, 10], [45, 12], [55, 12], [55, 10],             //tyre upper right
+    [25, -10], [25, -12], [35, -12], [35, -10],             //tyre lower left
+    [45, -10], [45, -12], [55, -12], [55, -10],             //tyre lower right
+    [23, -6], [23, 6], [45, 6], [45, -6], [23, -6]
+]; //car roof
+
 var nSteps = 300; //greater value bette the curve :)
 var totalPoints = 21; //used to manage total points on curves
 var lineWidth = 100; //used to allow different width of bezier curves to be drawn
@@ -47,9 +65,11 @@ function drawBezierCurve() {
 
     var tIncrement = t;
 
-    for (j = 0; j < 3; j += 3) {
+    for (j = 0; j < totalPoints; j += 3) {
         oldX = points[j][0];
         oldY = points[j][1];
+
+        t = 1 / nSteps;
 
         for (i = 0; i < nSteps; i += 1) {
 
@@ -58,6 +78,7 @@ function drawBezierCurve() {
             y = Math.pow((1 - t), 2) * points[j][1] + 2 * (1 - t) * t * points[j + 1][1] + Math.pow(t, 2) * points[j + 2][1];
 
             drawLine(oldX, oldY, x, y, "black", lineWidth);
+            drawLine(oldX, oldY, x, y, "white", 5);
 
             //increment resolution so the the equation is updated to draw the next line
             t += tIncrement;
@@ -67,6 +88,48 @@ function drawBezierCurve() {
             oldY = y;
         }
     }
+
+    drawLine(shapeCoords[0][0], shapeCoords[0][1], shapeCoords[1][0], shapeCoords[1][1], "red", 10.0);
+    drawLine(shapeCoords[1][0], shapeCoords[1][1], shapeCoords[2][0], shapeCoords[2][1], "red", 10.0);
+    drawLine(shapeCoords[2][0], shapeCoords[2][1], shapeCoords[3][0], shapeCoords[3][1], "red", 10.0);
+    drawLine(shapeCoords[3][0], shapeCoords[3][1], shapeCoords[4][0], shapeCoords[4][1], "red", 10.0);
+    drawLine(shapeCoords[5][0], shapeCoords[5][1], shapeCoords[6][0], shapeCoords[6][1], "blue", 10.0); //upper left tyre
+    drawLine(shapeCoords[6][0], shapeCoords[6][1], shapeCoords[7][0], shapeCoords[7][1], "blue", 10.0);
+    drawLine(shapeCoords[7][0], shapeCoords[7][1], shapeCoords[8][0], shapeCoords[8][1], "blue", 10.0);
+    drawLine(shapeCoords[9][0], shapeCoords[9][1], shapeCoords[10][0], shapeCoords[10][1], "blue", 10.0); //upper right tyre
+    drawLine(shapeCoords[10][0], shapeCoords[10][1], shapeCoords[11][0], shapeCoords[11][1], "blue", 10.0);
+    drawLine(shapeCoords[11][0], shapeCoords[11][1], shapeCoords[12][0], shapeCoords[12][1], "blue", 10.0);
+    drawLine(shapeCoords[13][0], shapeCoords[13][1], shapeCoords[14][0], shapeCoords[14][1], "blue", 10.0); //lower left tyre
+    drawLine(shapeCoords[14][0], shapeCoords[14][1], shapeCoords[15][0], shapeCoords[15][1], "blue", 10.0);
+    drawLine(shapeCoords[15][0], shapeCoords[15][1], shapeCoords[16][0], shapeCoords[16][1], "blue", 10.0);
+    drawLine(shapeCoords[17][0], shapeCoords[17][1], shapeCoords[18][0], shapeCoords[18][1], "blue", 10.0); //lower right tyre
+    drawLine(shapeCoords[18][0], shapeCoords[18][1], shapeCoords[19][0], shapeCoords[19][1], "blue", 10.0);
+    drawLine(shapeCoords[19][0], shapeCoords[19][1], shapeCoords[20][0], shapeCoords[20][1], "blue", 10.0);
+    drawLine(shapeCoords[21][0], shapeCoords[21][1], shapeCoords[22][0], shapeCoords[22][1], "red", 10.0); //car roof
+    drawLine(shapeCoords[22][0], shapeCoords[22][1], shapeCoords[23][0], shapeCoords[23][1], "red", 10.0);
+    drawLine(shapeCoords[23][0], shapeCoords[23][1], shapeCoords[24][0], shapeCoords[24][1], "red", 10.0);
+    drawLine(shapeCoords[24][0], shapeCoords[24][1], shapeCoords[25][0], shapeCoords[25][1], "red", 10.0);
+
+    drawLine(shapeCoords2[0][0], shapeCoords2[0][1], shapeCoords2[1][0], shapeCoords2[1][1], "red", 10.0);
+    drawLine(shapeCoords2[1][0], shapeCoords2[1][1], shapeCoords2[2][0], shapeCoords2[2][1], "red", 10.0);
+    drawLine(shapeCoords2[2][0], shapeCoords2[2][1], shapeCoords2[3][0], shapeCoords2[3][1], "red", 10.0);
+    drawLine(shapeCoords2[3][0], shapeCoords2[3][1], shapeCoords2[4][0], shapeCoords2[4][1], "red", 10.0);
+    drawLine(shapeCoords2[5][0], shapeCoords2[5][1], shapeCoords2[6][0], shapeCoords2[6][1], "blue", 10.0); //upper left tyre
+    drawLine(shapeCoords2[6][0], shapeCoords2[6][1], shapeCoords2[7][0], shapeCoords2[7][1], "blue", 10.0);
+    drawLine(shapeCoords2[7][0], shapeCoords2[7][1], shapeCoords2[8][0], shapeCoords2[8][1], "blue", 10.0);
+    drawLine(shapeCoords2[9][0], shapeCoords2[9][1], shapeCoords2[10][0], shapeCoords2[10][1], "blue", 10.0); //upper right tyre
+    drawLine(shapeCoords2[10][0], shapeCoords2[10][1], shapeCoords2[11][0], shapeCoords2[11][1], "blue", 10.0);
+    drawLine(shapeCoords2[11][0], shapeCoords2[11][1], shapeCoords2[12][0], shapeCoords2[12][1], "blue", 10.0);
+    drawLine(shapeCoords2[13][0], shapeCoords2[13][1], shapeCoords2[14][0], shapeCoords2[14][1], "blue", 10.0); //lower left tyre
+    drawLine(shapeCoords2[14][0], shapeCoords2[14][1], shapeCoords2[15][0], shapeCoords2[15][1], "blue", 10.0);
+    drawLine(shapeCoords2[15][0], shapeCoords2[15][1], shapeCoords2[16][0], shapeCoords2[16][1], "blue", 10.0);
+    drawLine(shapeCoords2[17][0], shapeCoords2[17][1], shapeCoords2[18][0], shapeCoords2[18][1], "blue", 10.0); //lower right tyre
+    drawLine(shapeCoords2[18][0], shapeCoords2[18][1], shapeCoords2[19][0], shapeCoords2[19][1], "blue", 10.0);
+    drawLine(shapeCoords2[19][0], shapeCoords2[19][1], shapeCoords2[20][0], shapeCoords2[20][1], "blue", 10.0);
+    drawLine(shapeCoords2[21][0], shapeCoords2[21][1], shapeCoords2[22][0], shapeCoords2[22][1], "red", 10.0); //car roof
+    drawLine(shapeCoords2[22][0], shapeCoords2[22][1], shapeCoords2[23][0], shapeCoords2[23][1], "red", 10.0);
+    drawLine(shapeCoords2[23][0], shapeCoords2[23][1], shapeCoords2[24][0], shapeCoords2[24][1], "red", 10.0);
+    drawLine(shapeCoords2[24][0], shapeCoords2[24][1], shapeCoords2[25][0], shapeCoords2[25][1], "red", 10.0);
 }
 
 //keeps the side bar information up to date
