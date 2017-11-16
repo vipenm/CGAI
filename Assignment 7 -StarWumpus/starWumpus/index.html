@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+    <head>
+		<meta charset="UTF-8">
+        <title>6CS003 Graphics and AI Assignment 1</title>
+	    <link rel="stylesheet"  type="text/css" href="cssGrAI.css">
+		<script src="jsGraphicsLibrary.js"></script>
+		<script src="jsWumpusWorld.js"></script>
+		<script src="jsBTEngine.js"></script>
+		<script src="jsToBeUpdated.js"></script>
+    </head>
+<!--firstLoad() & clearGrid() functions takes 3 parameters, (displayGrid(boolean), displayCartesianOverlay(boolean), spacing of gridlines(integer)-->	
+    <body onload="firstLoad(true, false, 40);">
+        <div id="myApp">
+            <H1>Computer Graphics and Artificial Intelligence 6CS003</H1>
+            <canvas id="myCanvas" width="800" height="600">Your browser does not support Canvas!</canvas>
+
+            <div id="sidePanel">
+                 <p>6CS003 Task 7 -</p>
+                 <p>&emsp;&emsp;&emsp;&emsp;<b>Episode IV.V:<br>Midichlorians means Midichlorians!</b></p>
+				 <p id="updates"></p>
+            </div>
+		    
+			<input type="button" value="Agent Test" onClick="agentTestMode();">
+			<input type="button" value="Manual Test" onClick="manualTestMode();">
+			<input type="button" value="Wumpus Game" onClick="wumpusGame();">
+			<!-- <input type="button" value="Random Map" onClick="randomMapMode();"> -->
+			<input type="button" value="Toggle Sound" onClick="toggleSound();">
+			<audio id="sndMain">
+                <source src="sounds/swtheme.wav">
+            </audio>
+			<audio id="sndBackG1">
+                <source src="sounds/starwars-d_a4c1zmuz.mp3">
+            </audio>
+			<audio id="sndBackG2">
+                <source src="sounds/ewokpara.wav">
+            </audio>
+			<audio id="sndBackG3">
+                <source src="sounds/Imperial_March.mp3">
+            </audio>
+			<audio id="sndBackG4">
+                <source src="sounds/Tie Fighter Attack Loop.mp3">
+            </audio>
+			<audio id="sndFire">
+                <source src="sounds/Naboo-Torp.wav">
+            </audio>
+			<audio id="sndStep">
+                <source src="sounds/foottileecho1.wav">
+            </audio>
+			<audio id="sndTurn">
+                <source src="sounds/footstep3.wav">
+            </audio>
+			<audio id="sndFall">
+                <source src="sounds/WilhelmScream.wav">
+            </audio>
+			<audio id="sndGold">
+                <source src="sounds/R2D2-yeah.wav">
+            </audio>
+			<audio id="sndEcho">
+                <source src="sounds/Jedi-Fly2.wav">
+            </audio>
+			<audio id="sndExit1">
+                <source src="sounds/hlforce1.wav">
+            </audio>
+			<audio id="sndExit2">
+                <source src="sounds/swvader02.wav">
+            </audio>
+			<audio id="sndSt-1">
+                <source src="sounds/Alright men, load your weapons.mp3">
+            </audio>
+			<audio id="sndSt-2">
+                <source src="sounds/It's them! Blast them!.mp3">
+            </audio>
+			<audio id="sndSt-3">
+                <source src="sounds/Look_there.mp3">
+            </audio>
+			<audio id="sndLSabr">
+                <source src="sounds/litesabr.wav">
+            </audio>
+			<p><a href="http://jigsaw.w3.org/css-validator/check/referer">
+			   <!--<img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!" />-->
+			   </a>
+		    </p>
+		</div>
+    </body>
+</html>
