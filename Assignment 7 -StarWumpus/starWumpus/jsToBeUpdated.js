@@ -9,7 +9,7 @@
 // =                Behaviours                    =
 // = Each behaviour is an object that implements  =
 // = run method that sends an action back to the  -
-// = environment.  
+// = environment.
 // ================================================
 // Moves the avatar forward one step
 function Forward(status) {
@@ -86,9 +86,8 @@ function NearDanger(status) {
 NearDanger.prototype.run = function () {
     "use strict";
     var breeze = this.state.percepts[PercEnum.breeze];
-    var bump = this.state.percepts[PercEnum.bump];
     var stench = this.state.percepts[PercEnum.stench];
-    return breeze === false && bump === false && stench === false; // then its safe
+    return breeze === false && stench === false; // then its safe
 };
 
 // Sense if we have hit a wall
@@ -128,7 +127,6 @@ Lightsaber.prototype.run = function () {
     var feel = this.state.percepts[PercEnum.feel];
     return feel !== "lightsaber";
 };
-
 // ================================================
 // =               KnowledgeBase                  =
 // ================================================
@@ -161,7 +159,7 @@ function Agent(hero) {
 }
 
 // Method called by the game to initialise the agent
-// Note: below is for example purposes, you are free to delete/edit/hack 
+// Note: below is for example purposes, you are free to delete/edit/hack
 // it to your hearts content to engineer the agent behaviour you need
 function Agent_init() {
     "use strict";
@@ -176,13 +174,13 @@ function Agent_init() {
     var right = new Right(knowledgeBase); // turn right
     var left = new Left(knowledgeBase); // turn left
     var bump = new Bump(knowledgeBase); // detect when hit a wall
-    var use = new Use(knowledgeBase);    // interacts with item 
+    var use = new Use(knowledgeBase);    // interacts with item
     var sense = new JediSense(knowledgeBase); // sense if there is danger directly in front
     var goNoGo = new NearDanger(knowledgeBase); // if safe from stormtroopers or caves
     var tingle = new Tingle(knowledgeBase); // returns object from jedi sense
     var lightsaber = new Lightsaber(knowledgeBase);
 
-    // Some sub-sequences - 
+    // Some sub-sequences -
     var seq1 = new Selector();
     var seq2 = new Sequence();
     var seq3 = new Sequence();
@@ -205,7 +203,7 @@ function Agent_init() {
     seq3.add_child(bump);
     seq3.add_child(rndTurn);
 
-    seq1.add_child(seq3); 
+    seq1.add_child(seq3);
     seq1.add_child(seq4);
 
     // fourth sequence - interact with object then continue
@@ -221,7 +219,7 @@ function Agent_init() {
     root.add_child(step4);
     root.add_child(seq2);
     root.add_child(seq5);
-    root.add_child(rndTurn);    
+    root.add_child(rndTurn);
 
     // Add BT root to object
     this.root = root;
