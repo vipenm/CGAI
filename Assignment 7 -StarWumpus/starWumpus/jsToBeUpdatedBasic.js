@@ -18,7 +18,7 @@ function Agent_init() {
     // ==== Data for your agent can be initialised here ====
     // The table below is just for this demonstration, where actions 
     // are chosen at random and the is a bias towards walking forward
-    this.actionTable = ["forward", "forward", "forward", "forward", "right", "left", "use", "fire", "back"];
+    this.actionTable = ["forward"];
 }
 
 // Method called by the game to run the agent, it returns an action to control the NPC
@@ -28,10 +28,11 @@ function Agent_process() {
     var stench = percept[PercEnum.stench], breeze = percept[PercEnum.breeze], glitter = percept[PercEnum.glitter];
     var bump = percept[PercEnum.bump], scream = percept[PercEnum.scream];
     var facing = this.hero.facing;
+    var sense = percept[PercEnum.sense];
     var randomChoice = Math.floor(Math.random() * this.actionTable.length); // pick any action
     if (stench || breeze || glitter || bump || scream){
-        // do AI reasoning here
-    }
+    	
+    } 
     // ...and return the action to be performed
     return this.actionTable[randomChoice];
 }

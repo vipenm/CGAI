@@ -87,7 +87,8 @@ NearDanger.prototype.run = function () {
     "use strict";
     var breeze = this.state.percepts[PercEnum.breeze];
     var bump = this.state.percepts[PercEnum.bump];
-    return breeze === false && bump === false; // then its safe
+    var stench = this.state.percepts[PercEnum.stench];
+    return breeze === false && bump === false && stench === false; // then its safe
 };
 
 // Sense if we have hit a wall
@@ -114,6 +115,18 @@ Tingle.prototype.run = function () {
     "use strict";
     var scream = this.state.percepts[PercEnum.scream];
     return scream === "silence";
+};
+
+function Lightsaber(status) {
+    "use strict";
+    Leaf.call(this);
+    this.state = status;
+}
+
+Lightsaber.prototype.run = function () {
+    "use strict";
+    var feel = this.state.percepts[PercEnum.feel];
+    return feel !== "lightsaber";
 };
 
 // ================================================
@@ -159,20 +172,22 @@ function Agent_init() {
     var root = new Selector();
 
     // Create Actions
-    var forward = new Forward(knowledgeBase);
-    var right = new Right(knowledgeBase);
-    var left = new Left(knowledgeBase);
-    var bump = new Bump(knowledgeBase);
-    // var use = new Use(knowledgeBase);    // not used in this example
-    var sense = new JediSense(knowledgeBase);
-    var goNoGo = new NearDanger(knowledgeBase);
-    var tingle = new Tingle(knowledgeBase);
+    var forward = new Forward(knowledgeBase); // go forward
+    var right = new Right(knowledgeBase); // turn right
+    var left = new Left(knowledgeBase); // turn left
+    var bump = new Bump(knowledgeBase); // detect when hit a wall
+    var use = new Use(knowledgeBase);    // interacts with item 
+    var sense = new JediSense(knowledgeBase); // sense if there is danger directly in front
+    var goNoGo = new NearDanger(knowledgeBase); // if safe from stormtroopers or caves
+    var tingle = new Tingle(knowledgeBase); // returns object from jedi sense
+    var lightsaber = new Lightsaber(knowledgeBase);
 
     // Some sub-sequences - 
     var seq1 = new Selector();
     var seq2 = new Sequence();
     var seq3 = new Sequence();
     var seq4 = new Sequence();
+    var seq5 = new Sequence();
     var step4 = new Sequence();
     var rndTurn = new NDSelector(); // a non-deterministic sequence
 
@@ -180,27 +195,33 @@ function Agent_init() {
     rndTurn.add_child(right);
     rndTurn.add_child(left);
 
+    // third sequence - uses jedi sense and if nothing in front, move forward
     seq2.add_child(sense);
     seq2.add_child(tingle);
     seq2.add_child(forward);
+    seq2.add_child(lightsaber);
 
+    // first sequence - if hit wall, turn
     seq3.add_child(bump);
     seq3.add_child(rndTurn);
 
+    seq1.add_child(seq3); 
     seq1.add_child(seq4);
-    seq1.add_child(seq3);
 
+    // fourth sequence - interact with object then continue
+    seq5.add_child(use);
+    seq5.add_child(seq4);
+
+    // second sequence - if there is no danger around, move forward
     seq4.add_child(goNoGo);
     seq4.add_child(forward);
 
     step4.add_child(seq1);
-    step4.add_child(seq1);
-    step4.add_child(seq1);
-    step4.add_child(seq1);
 
     root.add_child(step4);
     root.add_child(seq2);
-    root.add_child(right);
+    root.add_child(seq5);
+    root.add_child(rndTurn);    
 
     // Add BT root to object
     this.root = root;

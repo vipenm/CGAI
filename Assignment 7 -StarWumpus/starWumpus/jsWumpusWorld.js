@@ -145,7 +145,7 @@ function Hero(point) {
     "use strict";
     var gp = new GamePiece();
     gp.fight = 0;
-    gp.haveLightsabre = false;
+    gp.havelightsaber = false;
     gp.alive = true;
     gp.facing = DirEnum.north;
     gp.percept = [false, false, false, "dark", "silence", "nothing"];
@@ -345,7 +345,7 @@ function Game_init() {
         this.trooper[i] = new StormTrooper(this.board.position.trooper[i]);
     }
 
-    this.lightSabre = new Weapon(this.board.position.weapon);
+    this.lightsaber = new Weapon(this.board.position.weapon);
 
     //this.gold  = new Gold(this.board.getRandomEmptySpace());
     this.control  = new Control(this.board.position.control);
@@ -733,7 +733,7 @@ function displayImages() {
                                 ctx.drawImage(ImgPit, X1, Y1);
                                 break;
                             case GpEnum.weapon:
-                                if (game.lightSabre.onFloor){
+                                if (game.lightsaber.onFloor){
                                     ctx.drawImage(ImgLSabre, X1, Y1);
                                 }
                                 break;
@@ -872,8 +872,8 @@ function doMove(e) {
                 game.door.open = !game.door.open;
                 break;
             case 5:
-                game.lightSabre.onFloor = false;
-                game.hero.haveLightsabre = true;
+                game.lightsaber.onFloor = false;
+                game.hero.havelightsaber = true;
                 break;
         }
     }
@@ -950,7 +950,7 @@ function checkTouch() {
         if ( item === GpEnum.wumpus) { // wumpus
             var trooper = game.findTrooper(game.hero.x, game.hero.y);
             if (trooper.alive) {
-                if (game.hero.haveLightsabre == true){
+                if (game.hero.havelightsaber == true){
                     
                     game.feedback.addMessage("Open a can of Jedi Wupp Ass!!");
                     game.sound.play(game.sound.event.sndLSabr);
@@ -973,8 +973,8 @@ function checkTouch() {
             game.feedback.addMessage(game.control.touchingMessage);
             game.hero.percept[PercEnum.feel] = "control-panel"; // = "gold";
         } 
-        if ( item === GpEnum.weapon && game.lightSabre.onFloor) {  // arrows
-            game.feedback.addMessage(game.lightSabre.touchingMessage);
+        if ( item === GpEnum.weapon && game.lightsaber.onFloor) {  // arrows
+            game.feedback.addMessage(game.lightsaber.touchingMessage);
             game.hero.percept[PercEnum.feel] = "lightsaber";  // = "arrows";
         } 
         if ( item === GpEnum.exit &&  game.door.open == true) {  // exit
@@ -1002,9 +1002,9 @@ function checkAdjacent() {
         game.feedback.addMessage(game.trooper[0].adjacentMessage);
         game.sound.play(game.sound.event.sndStTalk[Math.floor((Math.random() * 3))]);
     }
-    if ( game.hero.isAdjacent(GpEnum.weapon) && game.lightSabre.onFloor) {
-        game.hero.percept[PercEnum.glitter] = "lightsabre";
-        game.feedback.addMessage(game.lightSabre.adjacentMessage);
+    if ( game.hero.isAdjacent(GpEnum.weapon) && game.lightsaber.onFloor) {
+        game.hero.percept[PercEnum.glitter] = "lightsaber";
+        game.feedback.addMessage(game.lightsaber.adjacentMessage);
         game.sound.play(game.sound.event.sndGold);
     }
     if ( game.hero.isAdjacent(GpEnum.control) && game.control.active) {
