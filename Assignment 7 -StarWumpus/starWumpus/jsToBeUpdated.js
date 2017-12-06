@@ -116,16 +116,29 @@ Tingle.prototype.run = function () {
     return scream === "silence";
 };
 
-function Lightsaber(status) {
+// Tingle from the agent's Jedi sense
+function Stormtrooper(status) {
     "use strict";
     Leaf.call(this);
     this.state = status;
 }
 
-Lightsaber.prototype.run = function () {
+Stormtrooper.prototype.run = function () {
+    "use strict";
+    var scream = this.state.percepts[PercEnum.scream];
+    return scream === "disturbance";
+};
+
+function Interactable(status) {
+    "use strict";
+    Leaf.call(this);
+    this.state = status;
+}
+
+Interactable.prototype.run = function () {
     "use strict";
     var feel = this.state.percepts[PercEnum.feel];
-    return feel !== "lightsaber";
+    return feel === "nothing";
 };
 // ================================================
 // =               KnowledgeBase                  =
@@ -178,7 +191,8 @@ function Agent_init() {
     var sense = new JediSense(knowledgeBase); // sense if there is danger directly in front
     var goNoGo = new NearDanger(knowledgeBase); // if safe from stormtroopers or caves
     var tingle = new Tingle(knowledgeBase); // returns object from jedi sense
-    var lightsaber = new Lightsaber(knowledgeBase);
+    var stormtrooper = new Cave(knowledgeBase); // returns if object in front is stormtrooper
+    var interactable = new Interactable(knowledgeBase); // returns interactable object
 
     // Some sub-sequences -
     var seq1 = new Selector();
@@ -197,7 +211,7 @@ function Agent_init() {
     seq2.add_child(sense);
     seq2.add_child(tingle);
     seq2.add_child(forward);
-    seq2.add_child(lightsaber);
+    seq2.add_child(interactable);
 
     // first sequence - if hit wall, turn
     seq3.add_child(bump);
