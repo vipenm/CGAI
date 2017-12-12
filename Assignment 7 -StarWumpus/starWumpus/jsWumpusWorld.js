@@ -1032,7 +1032,7 @@ function wumpusGame(){
 function agentTestMode(){
     gameMode = ModeEnum.agentTest;
     game.init();
-    refreshIntervalId = setInterval(game.loop, 500);
+    refreshIntervalId = setInterval(game.loop, 100);
 }
 
 function manualTestMode(){

@@ -116,19 +116,6 @@ Tingle.prototype.run = function () {
     return scream === "silence";
 };
 
-// Tingle from the agent's Jedi sense
-function Stormtrooper(status) {
-    "use strict";
-    Leaf.call(this);
-    this.state = status;
-}
-
-Stormtrooper.prototype.run = function () {
-    "use strict";
-    var scream = this.state.percepts[PercEnum.scream];
-    return scream === "disturbance";
-};
-
 function Interactable(status) {
     "use strict";
     Leaf.call(this);
@@ -191,7 +178,6 @@ function Agent_init() {
     var sense = new JediSense(knowledgeBase); // sense if there is danger directly in front
     var goNoGo = new NearDanger(knowledgeBase); // if safe from stormtroopers or caves
     var tingle = new Tingle(knowledgeBase); // returns object from jedi sense
-    var stormtrooper = new Cave(knowledgeBase); // returns if object in front is stormtrooper
     var interactable = new Interactable(knowledgeBase); // returns interactable object
 
     // Some sub-sequences -
@@ -233,7 +219,7 @@ function Agent_init() {
     root.add_child(step4);
     root.add_child(seq2);
     root.add_child(seq5);
-    root.add_child(rndTurn);
+    root.add_child(right);
 
     // Add BT root to object
     this.root = root;
